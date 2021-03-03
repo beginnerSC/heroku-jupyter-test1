@@ -7,7 +7,7 @@ c.IPKernelApp.pylab = 'inline'  # if you want plotting support always in your no
 
 # Notebook config
 c.NotebookApp.notebook_dir = 'nbs'
-c.NotebookApp.allow_origin = u'legendre.herokuapp.com' # put your public IP Address here
+c.NotebookApp.allow_origin = u'jupyter-test1.herokuapp.com' # put your public IP Address here
 c.NotebookApp.ip = '*'
 c.NotebookApp.allow_remote_access = True
 c.NotebookApp.open_browser = False
