@@ -26,9 +26,9 @@ RUN echo "source /etc/bash_completion\n" >> /root/.bashrc
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && nvm install stable"
 
-# Install bash-completion
-RUN apt-get install bash-completion
-RUN echo "source /etc/bash_completion\n" >> /root/.bashrc
+# # Install bash-completion
+# RUN apt-get install bash-completion
+# RUN echo "source /etc/bash_completion\n" >> /root/.bashrc
 
 RUN echo "printf 'Happy hacking ❤️  Notebooks AI Team'" >> /root/.bashrc
 RUN echo "printf '\n\n'" >> /root/.bashrc
