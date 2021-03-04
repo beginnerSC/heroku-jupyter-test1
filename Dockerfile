@@ -143,30 +143,30 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-EXPOSE 8888
+# EXPOSE 8888
 
-# Configure container startup
-ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start-notebook.sh"]
+# # Configure container startup
+# ENTRYPOINT ["tini", "-g", "--"]
+# CMD ["start-notebook.sh"]
 
-# Copy local files as late as possible to avoid cache busting
-COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
-# Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
-COPY jupyter_notebook_config.py /etc/jupyter/
+# # Copy local files as late as possible to avoid cache busting
+# COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
+# # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
+# COPY jupyter_notebook_config.py /etc/jupyter/
 
-# Fix permissions on /etc/jupyter as root
-USER root
+# # Fix permissions on /etc/jupyter as root
+# USER root
 
-# Prepare upgrade to JupyterLab V3.0 #1205
-RUN sed -re "s/c.NotebookApp/c.ServerApp/g" \
-    /etc/jupyter/jupyter_notebook_config.py > /etc/jupyter/jupyter_server_config.py
+# # Prepare upgrade to JupyterLab V3.0 #1205
+# RUN sed -re "s/c.NotebookApp/c.ServerApp/g" \
+#     /etc/jupyter/jupyter_notebook_config.py > /etc/jupyter/jupyter_server_config.py
 
-RUN fix-permissions /etc/jupyter/
+# RUN fix-permissions /etc/jupyter/
 
-# Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
+# # Switch back to jovyan to avoid accidental container runs as root
+# USER $NB_UID
 
-WORKDIR $HOME
+# WORKDIR $HOME
 
 CMD ["jupyter", "lab", "--config", "./conf/jupyter.py"]
 
