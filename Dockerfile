@@ -49,11 +49,11 @@ RUN pip install -r requirements.txt
 # RUN jupyter serverextension enable --py jupyterlab_git
 
 ## spellchecker
-RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @ijmbarr/jupyterlab_spellchecker@0.1.5"
+# RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @ijmbarr/jupyterlab_spellchecker@0.1.5"
 
 ## RMOTR solutions
-RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @rmotr/jupyterlab-solutions@0.0.7"
-RUN jupyter serverextension enable jupyterlab_rmotr_solutions
+# RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @rmotr/jupyterlab-solutions@0.0.7"
+# RUN jupyter serverextension enable jupyterlab_rmotr_solutions
 
 # RUN mkdir -p /root/.jupyter/lab/user-settings/@jupyterlab/extensionmanager-extension/
 # RUN echo '{"enabled": false}' > /root/.jupyter/lab/user-settings/@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
