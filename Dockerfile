@@ -45,8 +45,8 @@ RUN pip install -r requirements.txt
 # Jupyter Extensions
 
 ## git
-RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @jupyterlab/git@0.9.0"
-RUN jupyter serverextension enable --py jupyterlab_git
+# RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @jupyterlab/git@0.9.0"
+# RUN jupyter serverextension enable --py jupyterlab_git
 
 ## spellchecker
 RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && jupyter labextension install @ijmbarr/jupyterlab_spellchecker@0.1.5"
