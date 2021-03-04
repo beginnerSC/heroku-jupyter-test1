@@ -58,8 +58,8 @@ RUN rm -f Dockerfile requirements.txt jupyter_notebook_config.py
 
 # EXPOSE 8888
 
-RUN chmod +x scripts/postBuild
-RUN ./scripts/postBuild
+# RUN chmod +x scripts/postBuild
+# RUN ./scripts/postBuild
 
 RUN chmod +x scripts/entrypoint
 RUN ./scripts/entrypoint
