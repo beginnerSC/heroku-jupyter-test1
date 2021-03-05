@@ -54,12 +54,11 @@ RUN pip install -r requirements.txt
 # RUN mkdir -p /root/.jupyter/lab/user-settings/@jupyterlab/extensionmanager-extension/
 # RUN echo '{"enabled": false}' > /root/.jupyter/lab/user-settings/@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
 
-RUN rm -f Dockerfile requirements.txt jupyter_notebook_config.py
+RUN rm -f Dockerfile requirements.txt
 
 # EXPOSE 8888
 
-# RUN chmod +x scripts/postBuild
-# RUN ./scripts/postBuild
+RUN chmod +x scripts/postBuild
+RUN ./scripts/postBuild
 
-RUN chmod +x scripts/entrypoint
-RUN ./scripts/entrypoint
+CMD ["./scripts/entrypoint"]
