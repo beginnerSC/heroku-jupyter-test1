@@ -4,4 +4,4 @@
 
 * Getting permission denied error running ``CMD ["./scripts/postBuild.sh"]``. Possible [solution](https://stackoverflow.com/questions/18960689/ubuntu-says-bash-program-permission-denied/18960752).
 
-* https://hub.docker.com/r/mikebirdgeneau/jupyterlab/dockerfile
+* haven't tried yet: https://hub.docker.com/r/mikebirdgeneau/jupyterlab/dockerfile
