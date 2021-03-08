@@ -25,4 +25,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 CMD ["./scripts/postBuild.sh"]
-CMD ["./scripts/entrypoint.sh"]
+CMD ["jupyter", "lab", "--config", "./jupyter_notebook_config.py"]
