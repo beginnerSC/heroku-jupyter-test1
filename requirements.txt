@@ -1,4 +1,2 @@
-numpy
-scipy
-pandas
 voila
+jupyterlab-spellchecker
