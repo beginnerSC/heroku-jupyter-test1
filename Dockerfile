@@ -1,57 +1,41 @@
-FROM python:3.8-buster
-MAINTAINER Team Notebooks AI <team@notebooks.ai>
+FROM python:alpine
 
-# Supress warnings about missing front-end. As recommended at:
-# http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
-ARG DEBIAN_FRONTEND=noninteractive
+# Install required packages
+RUN apk add --update --virtual=.build-dependencies alpine-sdk nodejs ca-certificates musl-dev gcc python-dev make cmake g++ gfortran libpng-dev freetype-dev libxml2-dev libxslt-dev
+RUN apk add --update git
 
-RUN printf "\n\n" >> /etc/apt/sources.list
-RUN echo '###### Debian Main Repos\n\
-  deb http://deb.debian.org/debian/ oldstable main contrib non-free\n\
-  deb-src http://deb.debian.org/debian/ oldstable main contrib non-free\n\
-  deb http://deb.debian.org/debian-security oldstable/updates main\n\
-  deb-src http://deb.debian.org/debian-security oldstable/updates main' >> /etc/apt/sources.list
+# Install Jupyter
+RUN pip install jupyter
+RUN pip install ipywidgets
+RUN jupyter nbextension enable --py widgetsnbextension
 
-RUN apt-get update && \
-    apt-get install -y apt-file apt-utils && \
-    apt-file update && \
-    apt-get install -y vim unzip openssh-client curl pandoc xzdec libmpc-dev && \
-    apt-get build-dep -y python-lxml
+# Install JupyterLab
+RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
 
-# Install bash-completion
-RUN apt-get install bash-completion
-RUN echo "source /etc/bash_completion\n" >> /root/.bashrc
+# Additional packages for compatability (glibc)
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
+  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk && \
+  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-i18n-2.23-r3.apk && \
+  wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-bin-2.23-r3.apk && \
+  apk add --no-cache glibc-2.23-r3.apk glibc-bin-2.23-r3.apk glibc-i18n-2.23-r3.apk && \
+  rm "/etc/apk/keys/sgerrand.rsa.pub" && \
+  /usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true && \
+  echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
+  ln -s /usr/include/locale.h /usr/include/xlocale.h
 
-# Install NodeJS
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-RUN /bin/bash -c "source $HOME/.nvm/nvm.sh && nvm install stable"
+# Optional Clean-up
+#  RUN apk del glibc-i18n && \
+#  apk del .build-dependencies && \
+#  rm glibc-2.23-r3.apk glibc-bin-2.23-r3.apk glibc-i18n-2.23-r3.apk && \
+#  rm -rf /var/cache/apk/*
 
-RUN echo "printf 'Happy hacking ❤️  Notebooks AI Team'" >> /root/.bashrc
-RUN echo "printf '\n\n'" >> /root/.bashrc
-RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w \n\[\033[0;32m\]└─\[\033[0m\033[0;32m\] \$\[\033[0m\033[0;32m\] ▶\[\033[0m\] '" >> /root/.bashrc
+ENV LANG=C.UTF-8
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-#     texlive-fonts-recommended \
-#     texlive-generic-recommended \
-#     texlive-latex-base \
-#     texlive-latex-extra \
-#     texlive-latex-recommended \
-#     texlive-publishers \
-#     texlive-science \
-#     texlive-xetex \
-#     texlive-lang-chinese \
-    tree \
-    git \
-    && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install Python Packages & Requirements (Done near end to avoid invalidating cache)
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-ENV APP_HOME /app
-WORKDIR ${APP_HOME}
-
-COPY . ./
-
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-CMD ["./scripts/postBuild.sh"]
-CMD ["jupyter", "lab", "--config", "./jupyter_notebook_config.py"]
+# Expose Jupyter port & cmd
+EXPOSE 8888
+RUN mkdir -p /opt/app/data
+CMD jupyter lab --ip=* --port=8888 --no-browser --notebook-dir=/opt/app/data --allow-root
