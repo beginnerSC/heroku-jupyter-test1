@@ -5,3 +5,9 @@
 * Getting permission denied error running ``CMD ["./scripts/postBuild.sh"]``. Possible [solution](https://stackoverflow.com/questions/18960689/ubuntu-says-bash-program-permission-denied/18960752).
 
 * haven't tried yet: https://hub.docker.com/r/mikebirdgeneau/jupyterlab/dockerfile
+
+* cnp: copy the cnp file, and then add the following to Dockerfile
+  ```
+  RUN chmod +x cnp
+  ENV PATH="${APP_HOME}:$PATH"
+  ```
