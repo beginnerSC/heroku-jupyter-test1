@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #     pandoc \
 #     tree \
 #     git \
-    bash
+    bash \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
