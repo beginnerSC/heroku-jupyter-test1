@@ -12,9 +12,6 @@
 # jupyter labextension install @pyviz/jupyterlab_pyviz
 jupyter lab build --minimize=False
 
-chmod +x cnp
-export PATH="$HOME:$PATH"
-
 # echo '\n# git add commit and push in one command \n' >> .bashrc
 
 # echo 'function cnp() {                                                                    ' >> .bashrc
