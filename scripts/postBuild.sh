@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # jupyter serverextension enable --py nbgitpuller --sys-prefix
-jupyter serverextension enable voila --sys-prefix
+# jupyter serverextension enable voila --sys-prefix
 # jupyter nbextension enable --py widgetsnbextension
 # jupyter labextension install @jupyter-widgets/jupyterlab-manager
 # jupyter labextension install @jupyter-voila/jupyterlab-previewls
@@ -11,6 +11,9 @@ jupyter serverextension enable voila --sys-prefix
 # jupyter labextension install @jupyterlab/toc
 # jupyter labextension install @pyviz/jupyterlab_pyviz
 jupyter lab build --minimize=False
+
+chmod +x cnp
+export PATH="$HOME:$PATH"
 
 # echo '\n# git add commit and push in one command \n' >> .bashrc
 
