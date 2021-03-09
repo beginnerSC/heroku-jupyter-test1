@@ -18,13 +18,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #     pandoc \
 #     tree \
     git \
-    bash-completion \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN chmod +x cnp
-RUN export PATH="${APP_HOME}:$PATH"
+ENV PATH="${APP_HOME}:$PATH"
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
