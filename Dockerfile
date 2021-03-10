@@ -1,4 +1,4 @@
-FROM python:3.8.2-slim
+FROM python:3.8-buster
 
 ENV APP_HOME /app
 WORKDIR ${APP_HOME}
