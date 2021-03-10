@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #     tree \
     git \
     cron \
+    nano \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
