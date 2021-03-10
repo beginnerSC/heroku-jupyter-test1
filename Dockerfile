@@ -18,9 +18,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #     pandoc \
 #     tree \
     git \
+    cron \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod +x Miniconda3-latest-Linux-x86_64.sh
+RUN ./Miniconda3-latest-Linux-x86_64.sh
 
 RUN chmod +x cnp
 ENV PATH="${APP_HOME}:$PATH"
