@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+RUN apt-get update && apt-get install -y --no-install-recommends wget
+
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 RUN wget \
