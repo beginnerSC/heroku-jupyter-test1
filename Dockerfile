@@ -1,4 +1,4 @@
-FROM python:3.8-buster
+FROM ubuntu:18.04
 
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
@@ -28,8 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #     pandoc \
 #     tree \
     git \
-    cron \
-    nano \
+#     cron \
+#     nano \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
