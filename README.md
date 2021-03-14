@@ -11,3 +11,4 @@
   * 試 [alpine-miniconda3](https://hub.docker.com/r/frolvlad/alpine-miniconda3)
   * [bash in alpine](https://stackoverflow.com/questions/40944479/docker-how-to-use-bash-with-an-alpine-based-docker-image)
   * cron in alpine [1](https://forums.docker.com/t/how-to-run-a-cron-job-inside-a-container-alpine/7759) and [2](https://stackoverflow.com/questions/37015624/how-to-run-a-cron-job-inside-a-docker-container)
+  * 理論上同樣的 Dockerfile 就可以用 binder deploy 了，可是 bash 會是好的嗎？
